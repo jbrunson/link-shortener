@@ -6,7 +6,11 @@ Meteor.methods({
   'links.insert': (url) => {
     // Check if url is valid? 
     check(url, Match.Where(url => validUrl.isUri(url)));
+
+    // Save the url
+    const token = Math.random().toString(36).slice(-5);
+    Links.insert({ url, token, clicks: 0 });
   }
 });
 
-export const links = new Mongo.Collection('links');
+export const Links = new Mongo.Collection('links');
